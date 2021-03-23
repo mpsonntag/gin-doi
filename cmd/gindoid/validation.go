@@ -60,6 +60,11 @@ func collectWarnings(job *RegistrationJob) (warnings []string) {
 	// Check references
 	warnings = referenceWarnings(job.Metadata.YAMLData, warnings)
 
+	// Warn if resourceType is not 'Dataset'
+	if !strings.EqualFold(job.Metadata.YAMLData.ResourceType, "dataset") {
+		warnings = append(warnings, fmt.Sprintf("ResourceType is not 'Dataset' but %q", job.Metadata.YAMLData.ResourceType))
+	}
+
 	return
 }
 
